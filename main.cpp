@@ -4,6 +4,7 @@
 
 int main() {
     AVLTree myAVLTree;
+    //TreeNode* root;
     int userChoice;
     
     cout << setfill('-') << setw(46) << "\nAVL Tree Implementation\n" << setfill('-') << setw(22) << '\n';
@@ -14,7 +15,19 @@ int main() {
     switch (userChoice) {
         case 1:
             //1. Insert an element into the tree
-            myAVLTree.Insert(1);
+            myAVLTree.Insert(15);
+            myAVLTree.Insert(18);
+            myAVLTree.Insert(10);
+            myAVLTree.Insert(7);
+            myAVLTree.Insert(57);
+            myAVLTree.Insert(6);
+            myAVLTree.Insert(13);
+            myAVLTree.Insert(12);
+            myAVLTree.Insert(9);
+            myAVLTree.Insert(65);
+            myAVLTree.Insert(19);
+            myAVLTree.Insert(16);
+            myAVLTree.Insert(23);
             break;
     
         case 2:
