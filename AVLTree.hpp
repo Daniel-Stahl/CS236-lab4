@@ -27,10 +27,15 @@ public:
     TreeNode* RotateRightLeft(TreeNode* node);
     TreeNode* RotateLeftRight(TreeNode* node);
     TreeNode* Balance(TreeNode* node);
-    void Difference(TreeNode* node);
+    int Difference(TreeNode* node);
     int Height(TreeNode* node);
+    void DisplayTree();
+    void DisplayTree(TreeNode* node, int level);
+    void DisplayInOrder();
     void DisplayInOrder(TreeNode* node);
+    void DisplayPreOrder();
     void DisplayPreOrder(TreeNode* node);
+    void DisplayPostOrder();
     void DisplayPostOrder(TreeNode* node);
     void EmptyTree(TreeNode* node);
     ~AVLTree();

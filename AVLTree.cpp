@@ -20,47 +20,43 @@ TreeNode* AVLTree::Insert(TreeNode* node, int num) {
 }
 
 TreeNode* AVLTree::RotateRight(TreeNode* node) {
-    TreeNode* tempNode = node->left;
-    TreeNode* B = tempNode->right;
-    tempNode->right = node;
-    node->left = B;
-    cout << "Rotate right" << endl;
-    return tempNode;
+    TreeNode* tempNodeA = node->left;
+    TreeNode* tempNodeB = tempNodeA->right;
+    tempNodeA->right = node;
+    node->left = tempNodeB;
+    return tempNodeA;
 }
 
 TreeNode* AVLTree::RotateLeft(TreeNode* node) {
-    TreeNode* tempNode = node->right;
-    TreeNode* B = tempNode->left;
-    tempNode->left = node;
-    node->right = B;
-    cout << "Rotate left" << endl;
-    return tempNode;
+    TreeNode* tempNodeA = node->right;
+    TreeNode* tempNodeB = tempNodeA->left;
+    tempNodeA->left = node;
+    node->right = tempNodeB;
+    return tempNodeA;
 }
 
 TreeNode* AVLTree::RotateRightLeft(TreeNode* node) {
     TreeNode* tempNode = node->right;
     node->right = RotateRight(tempNode);
-    cout << "Rotate right left" << endl;
     return RotateLeft(node);
 }
 
 TreeNode* AVLTree::RotateLeftRight(TreeNode* node) {
     TreeNode* tempNode = node->left;
     node->left = RotateLeft(tempNode);
-    cout << "Rotate left right" << endl;
     return RotateRight(node);
 }
 
 TreeNode* AVLTree::Balance(TreeNode* node) {
     int balanceFactor = Height(node->left) - Height(node->right);
     if (balanceFactor > 1) {
-        if (Height(node->left->left) - Height(node->left->right) >= 1) {
+        if (Difference(node->left) >= 1) {
             node = RotateRight(node);
         } else {
             node = RotateLeftRight(node);
         }
     } else if(balanceFactor < -1){
-        if (Height(node->right->left) - Height(node->right->right) < 0) {
+        if (Difference(node->right) < 0) {
             node = RotateLeft(node);
         } else {
             node = RotateRightLeft(node);
@@ -85,20 +81,84 @@ int AVLTree::Height(TreeNode* node) {
     }
 }
 
-void AVLTree::Difference(TreeNode* node) {
+int AVLTree::Difference(TreeNode* node) {
+    return Height(node->left) - Height(node->right);
+}
 
+void AVLTree::DisplayTree() {
+    TreeNode* tempNode = root;
+    DisplayTree(tempNode, 0);
+}
+
+void AVLTree::DisplayTree(TreeNode* node, int level) {
+    if (node == NULL) {
+        return;
+    }
+    
+    level += 15;
+    
+    DisplayTree(node->right, level);
+    
+    cout << endl;
+    
+    if (node == root) {
+        cout << "Root -> ";
+    }
+    
+    for (int x = 15; x < level; x++) {
+        cout << " ";
+    }
+    
+    cout << node->value << "\n";
+    
+    DisplayTree(node->left, level);
+    
+}
+
+void AVLTree::DisplayInOrder() {
+    TreeNode* node = root;
+    DisplayInOrder(node);
 }
 
 void AVLTree::DisplayInOrder(TreeNode* node) {
+    if (node == NULL) {
+        return;
+    }
+    
+    DisplayInOrder(node->left);
+    cout << node->value << "\t";
+    DisplayInOrder(node->right);
+}
 
+void AVLTree::DisplayPreOrder() {
+    TreeNode* node = root;
+    DisplayPreOrder(node);
 }
 
 void AVLTree::DisplayPreOrder(TreeNode* node) {
+    if (node == NULL) {
+        return;
+    }
+    
+    cout << node->value << "\t";
+    DisplayPreOrder(node->left);
+    DisplayPreOrder(node->right);
+}
 
+void AVLTree::DisplayPostOrder() {
+    TreeNode* node = root;
+    DisplayPostOrder(node);
 }
 
 void AVLTree::DisplayPostOrder(TreeNode* node) {
-
+    if (node == NULL) {
+        return;
+    }
+    
+    DisplayPostOrder(node->left);
+    DisplayPostOrder(node->right);
+    
+    cout << node->value << "\t";
 }
 
 void AVLTree::EmptyTree(TreeNode* node) {
